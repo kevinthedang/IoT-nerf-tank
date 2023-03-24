@@ -15,8 +15,9 @@
         <title>Tank Controls</title>
         <link rel="shortcut icon" href="../public/favicon-tank.png" type="image/x-icon">
 
-        <!-- get the stylesheet for this page -->
+        <!-- get the stylesheet and script for this page -->
         <link rel="stylesheet" href="./style.css">
+        <script src="./script.js"></script>
     </head>
 
     <body>
@@ -36,26 +37,26 @@
             <!-- movement controls -->
             <div class="grid-container">
                 <div></div>
-                <div class="grid-item">Foward</div>
+                <div class="grid-item" id="foward">Foward</div>
                 <div></div>
-                <div class="grid-item">Turn Left</div>
+                <div class="grid-item" id="left">Turn Left</div>
                 <div></div>
-                <div class="grid-item">Turn Right</div>
+                <div class="grid-item" id="right">Turn Right</div>
                 <div></div>
-                <div class="grid-item">Reverse</div>
+                <div class="grid-item" id="reverse">Reverse</div>
                 <div></div>
             </div>
 
             <!-- turret controls -->
             <div class="grid-container">
                 <div></div>
-                <div class="grid-item">Up</div>
+                <div class="grid-item" id="u-aim">Up</div>
                 <div></div>
-                <div class="grid-item">Turn Left</div>
-                <div class="grid-fire">Fire!</div>
-                <div class="grid-item">Turn Right</div>
+                <div class="grid-item" id="l-aim">Turn Left</div>
+                <div class="grid-fire" id="fire">Fire!</div>
+                <div class="grid-item" id="r-aim">Turn Right</div>
                 <div></div>
-                <div class="grid-item">Down</div>
+                <div class="grid-item" id="d-aim">Down</div>
                 <div></div>
             </div>
         </div>
