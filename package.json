@@ -1,0 +1,22 @@
+{
+  "name": "tank",
+  "version": "1.0.0",
+  "description": "IoT Tank Device",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevinthedang/IoT-nerf-tank.git"
+  },
+  "author": "Kevin Dang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kevinthedang/IoT-nerf-tank/issues"
+  },
+  "homepage": "https://github.com/kevinthedang/IoT-nerf-tank#readme",
+  "dependencies": {
+    "aws-iot-device-sdk": "^2.2.12"
+  }
+}
