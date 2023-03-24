@@ -9,12 +9,6 @@ Last Modified: 3-23-2023
 
 // start this upon loading the window
 window.onload = function() {
-    /*
-    can be simplified to:
-        document.getElementById("left").addEventListener("click", function() {sendMessage("left")});
-    for each button
-    */
-
     // movement
     var left_move = document.getElementById("left");
     var right_move = document.getElementById("right");
@@ -34,6 +28,7 @@ window.onload = function() {
     var down_aim = document.getElementById("d-aim");
     var fire_round = document.getElementById("fire");
 
+    // listeners for the buttons
     right_aim.addEventListener("click", function() {sendMessage("aim right", right_aim)});
     left_aim.addEventListener("click", function() {sendMessage("aim left")});
     up_aim.addEventListener("click", function() {sendMessage("aim up")});
