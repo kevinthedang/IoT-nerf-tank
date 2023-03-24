@@ -18,11 +18,11 @@ var device = awsIot.device({
 
 // connection to AWS IoT Core
 device.on('connect', () => {
-    console.log('Connecting to AWS IoT Core');
-
-    device.subscribe('from_client');
+    console.log('Connected to AWS IoT Core');
 
     // subscribe to other topic, this topic should send device messages
+    device.subscribe('from_client');
+
     var message = "PC client connected with indentity: " + id;
     device.publish('device_connection', JSON.stringify({ message: message }));
 });
