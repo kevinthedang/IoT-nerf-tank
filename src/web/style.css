@@ -2,6 +2,29 @@ body {
     margin: 0;
     padding: 0;
     user-select: none; /* prevents text highlighting */
+    background-color: black;
+}
+
+h1 {
+    font-size: 40px;
+    margin-top: 50px;
+    color: white;
+    text-align: center;
+}
+
+.main-container {
+    display: flex;
+    justify-content: center;
+}
+
+.title {
+    font-size: 40px;
+    padding: 20px;
+    margin: 50px;
+
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    background-color: rgb(199, 185, 60);
+    text-align: center;
 }
 
 .controls-layout {
@@ -31,12 +54,30 @@ body {
 
 .grid-item {
     font-size: 40px;
-    padding: 10px;
+    padding: 15px;
     margin: 10px;
 
     border: 1px solid rgba(0, 0, 0, 0.8);
     background-color: lightblue;
     text-align: center;
+}
+
+.grid-fire {
+    font-size: 40px;
+    padding: 15px;
+    margin: 10px;
+
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    background-color: lightblue;
+    text-align: center;
+}
+
+.grid-fire:hover {
+    background-color: rgb(209, 21, 21);
+}
+
+.grid-fire:active {
+    background-color: green;
 }
 
 .grid-item:hover {
