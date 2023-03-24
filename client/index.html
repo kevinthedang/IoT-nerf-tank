@@ -1,64 +1,13 @@
-<!-- 
-    Author: Kevin Dang
-    Date: 3-23-2023
-    File: index.html
-    Desc: main display file to display controls
- -->
 <!DOCTYPE html>
-<html>
-    <head>
-        <!-- Meta stuff -->
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <!-- title -->
-        <title>Tank Controls</title>
-        <link rel="shortcut icon" href="./public/favicon-tank.png" type="image/x-icon">
-
-        <!-- get the stylesheet and script for this page -->
-        <link rel="stylesheet" href="./style.css">
-        <script src="./script.js"></script>
-    </head>
-
-    <body>
-        <h1>Tank Control Interface</h1>
-
-        <div class="main-container">
-            <div class="title">
-                Tank Movement
-            </div>
-
-            <div class="title">
-                Turret Controls
-            </div>
-        </div>
-
-        <div class="controls-layout">
-            <!-- movement controls -->
-            <div class="grid-container">
-                <div></div>
-                <div class="grid-item" id="foward">Foward</div>
-                <div></div>
-                <div class="grid-item" id="left">Turn Left</div>
-                <div></div>
-                <div class="grid-item" id="right">Turn Right</div>
-                <div></div>
-                <div class="grid-item" id="reverse">Reverse</div>
-                <div></div>
-            </div>
-
-            <!-- turret controls -->
-            <div class="grid-container">
-                <div></div>
-                <div class="grid-item" id="u-aim">Up</div>
-                <div></div>
-                <div class="grid-item" id="l-aim">Turn Left</div>
-                <div class="grid-fire" id="fire">Fire!</div>
-                <div class="grid-item" id="r-aim">Turn Right</div>
-                <div></div>
-                <div class="grid-item" id="d-aim">Down</div>
-                <div></div>
-            </div>
-        </div>
-    </body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon-tank.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tank Controls</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
