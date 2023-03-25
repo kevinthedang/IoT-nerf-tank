@@ -1,8 +1,10 @@
-import favicon from '/favicon-tank.png'
+import { useState } from 'react';
+import favicon from '/favicon-tank.png';
 import './style/style.css'
 import Axios from 'axios';
 
 function App() {
+  const [current, setCurrent] = useState(0);
 
   const validate_and_send = (message) => {
     console.log(`Trying to send: ${message}`);
@@ -10,7 +12,12 @@ function App() {
       command: message
     }).catch((err) => {
       console.log(err);
-    })
+    });
+
+    setCurrent(current + 1);
+    console.log(`current: ${current}`);
+    if (current > 5)
+      window.location.reload();
   }
 
   return (
