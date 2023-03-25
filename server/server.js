@@ -54,7 +54,8 @@ app.post('/sendMessage', async (request, response, next) => {
     try {
         // get the information and send it
         const result = request.body;
-        device.publish('from_client', result);
+        console.log(`This is what we got: ${result.command}`)
+        device.publish('from_client', JSON.stringify({ command: result.command }));
     } catch (err) {
         next(err);
     }
@@ -77,40 +78,7 @@ app.use((err, request, response, next) => {
     });
 });
 
+// allows to access this server
 app.listen(PORT, () => {
     console.log(`Server listening on https://localhost:${PORT}`);
 })
-
-
-
-
-
-
-
-
-
-// provided aws identification for a device to connect
-// WARNING: having the same clientId of an active client identifier in use will terminate/replace it
-var device = awsIot.device({
-    host: deviceInfo.endpoint,
-    clientId: id,
-    certPath: './certifs/certificate.pem.crt',
-    caPath: './certifs/AmazonRootCA1.pem',
-    keyPath: './certifs/private.pem.key'
-});
-
-// connection to AWS IoT Core
-device.on('connect', () => {
-    console.log('Connected to AWS IoT Core');
-
-    // subscribe to other topic, this topic should send device messages
-    device.subscribe('from_client');
-
-    var message = "PC client connected with indentity: " + id;
-    device.publish('device_connection', JSON.stringify({ message: message }));
-});
-
-// receiver method from AWS IoT Core topic, confirms message received
-device.on('message', (topic, payload) => {
-    console.log('message', topic, payload.toString());
-});

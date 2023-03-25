@@ -1,13 +1,15 @@
-import { useState } from 'react'
 import favicon from '/favicon-tank.png'
 import './style/style.css'
 import Axios from 'axios';
 
 function App() {
 
-  const validate_and_send = () => {
-    Axios.post('https://localhost:8080/sendMessage', {
-      
+  const validate_and_send = (message) => {
+    console.log(`Trying to send: ${message}`);
+    Axios.post('http://localhost:8080/sendMessage', {
+      command: message
+    }).catch((err) => {
+      console.log(err);
     })
   }
 
@@ -15,40 +17,40 @@ function App() {
     <div className="App">
       <h1>Tank Control Interface</h1>
 
-      <div class="main-container">
-          <div class="title">
+      <div className="main-container">
+          <div className="title">
               Tank Movement
           </div>
 
-          <div class="title">
+          <div className="title">
               Turret Controls
           </div>
       </div>
 
-      <div class="controls-layout">
+      <div className="controls-layout">
         {/* movement controls */}
-        <div class="grid-container">
+        <div className="grid-container">
             <div></div>
-            <div class="grid-item" id="foward" onClick={}>Foward</div>
+            <div className="grid-item" id="foward" onClick={() => {validate_and_send('forward')}}>Foward</div>
             <div></div>
-            <div class="grid-item" id="left">Turn Left</div>
+            <div className="grid-item" id="left" onClick={() => {validate_and_send('left')}}>Turn Left</div>
             <div></div>
-            <div class="grid-item" id="right">Turn Right</div>
+            <div className="grid-item" id="right" onClick={() => {validate_and_send('right')}}>Turn Right</div>
             <div></div>
-            <div class="grid-item" id="reverse">Reverse</div>
+            <div className="grid-item" id="reverse" onClick={() => {validate_and_send('reverse')}}>Reverse</div>
             <div></div>
         </div>
 
         {/* turret controls */}
-        <div class="grid-container">
+        <div className="grid-container">
             <div></div>
-            <div class="grid-item" id="u-aim">Up</div>
+            <div className="grid-item" id="u-aim" onClick={() => {validate_and_send('up')}}>Up</div>
             <div></div>
-            <div class="grid-item" id="l-aim">Turn Left</div>
-            <div class="grid-fire" id="fire">Fire!</div>
-            <div class="grid-item" id="r-aim">Turn Right</div>
+            <div className="grid-item" id="l-aim" onClick={() => {validate_and_send('l-aim')}}>Turn Left</div>
+            <div className="grid-fire" id="fire" onClick={() => {validate_and_send('fire!')}}>Fire!</div>
+            <div className="grid-item" id="r-aim" onClick={() => {validate_and_send('r-aim')}}>Turn Right</div>
             <div></div>
-            <div class="grid-item" id="d-aim">Down</div>
+            <div className="grid-item" id="d-aim" onClick={() => {validate_and_send('down')}}>Down</div>
             <div></div>
         </div>
       </div>
