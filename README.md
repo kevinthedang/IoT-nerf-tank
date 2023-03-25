@@ -8,9 +8,21 @@
 * [License](#license)
 
 ## Description
-For this project, we were inspired to combine a tank chassis with a nerf turret to create a tank that will be connected to a web server.
+For this project, we were inspired to combine a tank chassis with a nerf turret to create a tank that will be connected to a web server. The server will send json messages to certain topics on AWS where the tank (Raspberry Pi) will receive the messages and execute the commands.
 
 ## Software Used
+* [NodeJs](https://nodejs.org/en/download)
+
+## Libraries / Frameworks
+* Front-End
+    * [React](https://react.dev/)
+    * [Vite](https://vitejs.dev/)
+    * [Axios](https://axios-http.com/docs/intro)
+* Back-end
+    * [aws-iot-device-sdk](https://github.com/aws/aws-iot-device-sdk-js)
+    * [Cors](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
+    * [Express](http://expressjs.com/en/starter/installing.html)
+
 
 ## Parts
 * Refer to: 
