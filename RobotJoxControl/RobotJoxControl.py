@@ -1,18 +1,24 @@
 #!/usr/bin/python3
 
+# Built-in Python libs
 import logging
 from time import sleep
-from TargetingLaser import TargetingLaser
-from TreadMotor import TreadMotor
 
+# Special Project depencies
 import board
 from adafruit_motorkit import MotorKit
 import paho.mqtt.client as mqtt
 import RPi.GPIO as GPIO
 
+# Project Classes
+from TargetingLaser import TargetingLaser
+from TreadMotor import TreadMotor
+from JoxServo import JoxServo
+from GunElevator import GunElevator
+from AmmoRammer import AmmoRammer
 
-#Global handles to hardware objects
 
+# ***************************************************************** #
 def on_mqtt_message(client, userdata, message):
     message = message.payload.decode()
     message = message.strip()
@@ -35,6 +41,26 @@ def setupMQTTClient():
     mqttClient.on_message = on_mqtt_message
     return mqttClient
 
+def setupRobotDevices():
+    global robotDevices
+    leftTread = TreadMotor(motorAPI=motorKit.motor3, name="left")
+    rightTread = TreadMotor(motorAPI=motorKit.motor4, name="right")
+    targetingLaser = TargetingLaser()
+    turretRotate = JoxServo(name="TurretRotate", gpio_pin=12)
+    gunElevator = GunElevator(gpio_pin=13)
+    ammoRammer = AmmoRammer(gpio_pin=16)
+
+    robotDevices["leftTread"] = leftTread
+    robotDevices["rightTread"] = rightTread
+    robotDevices["targetingLaser"] = targetingLaser
+    robotDevices["turretRotate"] = turretRotate
+    robotDevices["gunElevator"] = gunElevator
+    robotDevices["ammoRammer"] = ammoRammer
+
+    return robotDevices
+
+
+
 
 if __name__ == "__main__":
     global robotDevices
@@ -47,15 +73,8 @@ if __name__ == "__main__":
 
     motorKit = MotorKit(i2c=board.I2C())
 
-    leftTread = TreadMotor(motorAPI=motorKit.motor3, name="left")
-    rightTread = TreadMotor(motorAPI=motorKit.motor4, name="right")
-    targetingLaser = TargetingLaser()
-
-    robotDevices["leftTread"] = leftTread
-    robotDevices["rightTread"] = rightTread
-    robotDevices["targetingLaser"] = targetingLaser
-
     mqttClient = setupMQTTClient()
+    robotDevices = setupRobotDevices()
 
 
     try:
