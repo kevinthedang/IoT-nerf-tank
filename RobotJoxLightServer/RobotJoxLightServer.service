@@ -1,0 +1,9 @@
+[Unit]
+Description=RobotJox robot LED lights server service
+After=mosquitto.service
+
+[Service]
+ExecStart=/usr/bin/python3 /usr/local/bin/RobotJoxLightServer.py
+
+[Install]
+WantedBy=multi-user.target
