@@ -13,9 +13,10 @@ import RPi.GPIO as GPIO
 # Project Classes
 from TargetingLaser import TargetingLaser
 from TreadMotor import TreadMotor
-from JoxServo import JoxServo
 from GunElevator import GunElevator
 from AmmoRammer import AmmoRammer
+from TurretRing import TurretRing
+from Flywheel import Flywheel
 
 
 # ***************************************************************** #
@@ -29,9 +30,7 @@ def on_mqtt_message(client, userdata, message):
     commandType = commandFields[1]
     commandOptions = commandFields[2:]
 
-    print(commandOptions)
     robotDevices[deviceName].command(commandType, commandOptions)
-
 
 
 def setupMQTTClient():
@@ -43,17 +42,22 @@ def setupMQTTClient():
 
 def setupRobotDevices():
     global robotDevices
+    motorKit = MotorKit(i2c=board.I2C())
+
     leftTread = TreadMotor(motorAPI=motorKit.motor3, name="left")
     rightTread = TreadMotor(motorAPI=motorKit.motor4, name="right")
-    targetingLaser = TargetingLaser()
-    turretRotate = JoxServo(name="TurretRotate", gpio_pin=12)
+    flywheel = Flywheel(motorAPIRightFlywheel=motorKit.motor1,
+                    motorAPILeftFlywheel=motorKit.motor2)
+    targetingLaser = TargetingLaser(gpio_pin=5)
+    turretRing = TurretRing(gpio_pin=12)
     gunElevator = GunElevator(gpio_pin=13)
     ammoRammer = AmmoRammer(gpio_pin=16)
 
     robotDevices["leftTread"] = leftTread
     robotDevices["rightTread"] = rightTread
+    robotDevices["flywheel"] = flywheel
     robotDevices["targetingLaser"] = targetingLaser
-    robotDevices["turretRotate"] = turretRotate
+    robotDevices["turretRing"] = turretRing
     robotDevices["gunElevator"] = gunElevator
     robotDevices["ammoRammer"] = ammoRammer
 
@@ -61,7 +65,7 @@ def setupRobotDevices():
 
 
 
-
+# ************************************************************************** #
 if __name__ == "__main__":
     global robotDevices
     robotDevices = {}
@@ -71,11 +75,8 @@ if __name__ == "__main__":
 
     logging.info("Log started")
 
-    motorKit = MotorKit(i2c=board.I2C())
-
     mqttClient = setupMQTTClient()
     robotDevices = setupRobotDevices()
-
 
     try:
         mqttClient.loop_forever()

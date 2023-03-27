@@ -9,16 +9,16 @@ class AmmoRammer(JoxServo):
         super().__init__(name="Ammo Rammer", gpio_pin=gpio_pin)
 
         # Override defaults for rammer physical specifications
-        self.current_angle = -60
-        self.minAngleRail = -90
-        self.maxAngleRail = -60
-        self.homeAngle = -60
+        # All experimentally determined
+        self.minAngleRail = -65
+        self.maxAngleRail = 20
+        self.homeAngle = 20
+        self.current_angle = self.homeAngle
 
-        self.fireRamAngleIn = self.minAngleRail
-        self.fireRamAngleBack = self.maxAngleRail
+        self.fireRamAngleIn = -65
+        self.fireRamAngleBack = self.homeAngle
         self.fireWaitTime = 0.5
 
-        self.setHome()
 
     def fire(self):
         self.setAngle(self.fireRamAngleIn)
@@ -33,4 +33,5 @@ class AmmoRammer(JoxServo):
         # ammoRammer:setHome
         elif type == "setHome":
             self.setHome()
+
 
