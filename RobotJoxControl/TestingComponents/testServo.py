@@ -1,5 +1,3 @@
-
-
 from JoxServo import JoxServo
 from time import sleep
 
@@ -13,19 +11,17 @@ elevator = GunElevator(gpio_pin=13)
 ring = TurretRing(gpio_pin=12)
 
 
-#rammer.setHome()
-#elevator.setHome()
-#elevator.up(40)
+# rammer.setHome()
+# elevator.setHome()
+# elevator.up(40)
 ring.setHome()
 sleep(0.5)
 ring.setAngle(30)
-#ring.turnLeft(10)
-#ring.setHome()
+# ring.turnLeft(10)
+# ring.setHome()
 sleep(1)
 print("GoTime")
-#rammer.fire()
-#rammer.setAngle(-60)
+# rammer.fire()
+# rammer.setAngle(-60)
 
 sleep(2)
-
-
