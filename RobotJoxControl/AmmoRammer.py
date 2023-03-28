@@ -36,9 +36,9 @@ class AmmoRammer(JoxServo):
 
         :return: None
         """
-        self.set_angle(self.fire_ram_angle_in)
+        self.setAngle(self.fire_ram_angle_in)
         sleep(self.fire_wait_time)  # Blocking issue, stalls MQTT processing
-        self.set_angle(self.fire_ram_angle_back)
+        self.setAngle(self.fire_ram_angle_back)
 
     def command(self, type: str, options: list) -> None:
         """

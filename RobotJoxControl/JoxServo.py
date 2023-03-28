@@ -72,7 +72,7 @@ class JoxServo:
         # ServoName:setAngle:degrees
         elif type == "setAngle":
             degrees = float(options[0])
-            self.setAngle(degrees=degrees)
+            self.setAngle(newAngle=degrees)
         # ServoName:setHome
         elif type == "setHome":
             self.setHome()

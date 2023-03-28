@@ -71,21 +71,21 @@ def setupRobotDevices() -> dict:
     :rtype: dict
     """
     global robotDevices
-    motorKit = MotorKit(i2c=board.I2C())
+    # motorKit = MotorKit(i2c=board.I2C())
 
-    leftTread = TreadMotor(motorAPI=motorKit.motor3, name="left")
-    rightTread = TreadMotor(motorAPI=motorKit.motor4, name="right")
-    flywheel = Flywheel(
-        motorAPIRightFlywheel=motorKit.motor1, motorAPILeftFlywheel=motorKit.motor2
-    )
+    # leftTread = TreadMotor(motorAPI=motorKit.motor3, name="left")
+    # rightTread = TreadMotor(motorAPI=motorKit.motor4, name="right")
+    # flywheel = Flywheel(
+    #    motorAPIRightFlywheel=motorKit.motor1, motorAPILeftFlywheel=motorKit.motor2
+    # )
     targetingLaser = TargetingLaser(gpio_pin=5)
     turretRing = TurretRing(gpio_pin=12)
     gunElevator = GunElevator(gpio_pin=13)
     ammoRammer = AmmoRammer(gpio_pin=16)
 
-    robotDevices["leftTread"] = leftTread
-    robotDevices["rightTread"] = rightTread
-    robotDevices["flywheel"] = flywheel
+    # robotDevices["leftTread"] = leftTread
+    # robotDevices["rightTread"] = rightTread
+    # robotDevices["flywheel"] = flywheel
     robotDevices["targetingLaser"] = targetingLaser
     robotDevices["turretRing"] = turretRing
     robotDevices["gunElevator"] = gunElevator
@@ -114,7 +114,7 @@ if __name__ == "__main__":
     finally:
         mqttClient.disconnect()
 
-        robotDevices["leftTread"].stop()
-        robotDevices["rightTread"].stop()
+#        robotDevices["leftTread"].stop()
+#        robotDevices["rightTread"].stop()
 
     logging.info("Done.")
