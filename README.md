@@ -23,6 +23,22 @@ For this project, we were inspired to combine a tank chassis with a nerf turret 
     * [Cors](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
     * [Express](http://expressjs.com/en/starter/installing.html)
 
+## To Run / Test
+* Get the [SDK](https://github.com/aws/aws-iot-device-sdk-python) onto the pi and have certificates ready from aws to run commands to the pi from the client
+    * create folder in the `~` directory called `certs` and place all of your certification files in there.
+    * You should put the `main.py` folder provided into the `samples/` folder in the repo and run the following:
+        * `python3 pubsub.py --topic topic_1 --ca_file ~/certs/Amazon-root-CA-1.pem --cert ~/certs/certificate.pem.crt --key ~/certs/private.pem.key --endpoint <your aws endpoint here>`
+        * now it should listen for commands from the tank client interface until it hears reverse.
+* Pull client and server [code](https://github.com/kevinthedang/IoT-nerf-tank)
+    * You will need to add your certifications into the `server` directory as a folder named `certifs`
+    * You will also need a json file named `endpoint.json` to hold your endpoint for the server to connect to:
+        * i.e. `{ "endpoint": "<your_endpoint_here>" }`
+    * NodeJs must be install to run the client and sever
+        * go into the `client` directory and run `npm i` then `npm start`
+        * go into the `server` directory and run `npm i` then `npm start`
+        * not the server should be up at `localhost:5173` most likely (or whatever vite tells you its hosted at)
+    * Now you can click on the buttons and the Pi should receive the messages!
+
 
 ## Parts
 * Refer to: 

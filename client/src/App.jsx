@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import favicon from '/favicon-tank.png'
 import './style/style.css'
 import Axios from 'axios';
 
 function App() {
+  const [current, setCurrent] = useState(0);
 
   const validate_and_send = (message) => {
     console.log(`Trying to send: ${message}`);
@@ -11,6 +13,12 @@ function App() {
     }).catch((err) => {
       console.log(err);
     })
+
+    setCurrent(current + 1);
+    if (current > 5)
+    {
+      window.location.reload();
+    }
   }
 
   return (
@@ -52,6 +60,13 @@ function App() {
             <div></div>
             <div className="grid-item" id="d-aim" onClick={() => {validate_and_send('down')}}>Down</div>
             <div></div>
+        </div>
+      </div>
+      <div className="main-container">
+        <div className="grid-container">
+          <div className="grid-item" onClick={() => {validate_and_send('laser-off')}}>Laser off</div>
+          <div className="grid-item" onClick={() => {validate_and_send('laser-on')}}>Laser On</div>
+          <div className="grid-item" onClick={() => {validate_and_send('stop')}}>Disconnect</div>
         </div>
       </div>
     </div>
