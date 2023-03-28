@@ -36,13 +36,14 @@ def handle_lights_message(message: str):
     # blankLights
     if message.startswith("blankLights"):
         blankStrip(pixels)
-    # setLight:index:R:G:B
-    elif message.startswith("setLight"):
+    # setPixel:index:R:G:B
+    elif message.startswith("setPixel"):
         vals = message.split(":")
         index = int(vals[1])
         red = int(vals[2])
         green = int(vals[3])
         blue = int(vals[4])
+        # logging.debug(f"index: {index} = ({red},{green},{blue})")
         pixels[index] = (red, green, blue)
         pixels.show()
     
@@ -80,6 +81,9 @@ if __name__ == "__main__":
 
     setupLEDStrip()
     mqttClient = setupMQTTClient()
+
+    pixels[1] = (0,255,0)
+    pixels.show()
 
     logging.info("System setup - starting main loop")
     try:

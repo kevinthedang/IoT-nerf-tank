@@ -7,3 +7,6 @@ all:
 black:
 	black *.py
 
+install-deps:
+	pip3 install -r requirements.txt
+
