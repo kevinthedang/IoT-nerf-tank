@@ -1,5 +1,6 @@
 [Unit]
 Description=RobotJox robot LED lights server service
+Requires=mosquitto.service
 After=mosquitto.service
 
 [Service]
