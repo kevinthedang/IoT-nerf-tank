@@ -23,7 +23,7 @@ class GunElevator(JoxServo):
         super().__init__(name="Gun Elevator", gpio_pin=gpio_pin)
 
         self.min_angle_rail = -0
-        self.max_angle_rail = 40
+        self.max_angle_rail = 20
         self.home_angle = 0
         self.current_angle = self.home_angle
 
@@ -33,7 +33,7 @@ class GunElevator(JoxServo):
 
         :param degrees: The number of degrees to lift the gun
         """
-        self.turn_left(degrees)
+        self.turnLeft(degrees)
 
     def down(self, degrees=10):
         """
@@ -41,7 +41,7 @@ class GunElevator(JoxServo):
 
         :param degrees: The number of degrees to lower the gun
         """
-        self.turn_right(degrees)
+        self.turnRight(degrees)
 
     def command(self, type: str, options: list) -> None:
         """
@@ -60,7 +60,8 @@ class GunElevator(JoxServo):
         # ServoName:setAngle:degrees
         elif type == "setAngle":
             degrees = float(options[0])
-            self.set_angle(degrees=degrees)
+            self.setAngle(degrees=degrees)
         # ServoName:setHome
         elif type == "setHome":
-            self.set_home()
+            self.setHome()
+

@@ -22,8 +22,8 @@ class AmmoRammer(JoxServo):
         super().__init__(name="Ammo Rammer", gpio_pin=gpio_pin)
 
         self.min_angle_rail = -65
-        self.max_angle_rail = 20
-        self.home_angle = 20
+        self.max_angle_rail = 10
+        self.home_angle = 10
         self.current_angle = self.home_angle
 
         self.fire_ram_angle_in = -65
