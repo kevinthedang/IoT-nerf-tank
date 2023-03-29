@@ -12,6 +12,14 @@ h1 {
     text-align: center;
 }
 
+#active {
+    color: green
+}
+
+#inactive {
+    color: red
+}
+
 .main-container {
     display: flex;
     justify-content: center;

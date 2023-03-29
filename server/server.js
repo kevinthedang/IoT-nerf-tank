@@ -10,6 +10,7 @@ var deviceInfo = require('./endpoint.json');
 // variables for client and aws
 let id = "NerfTankInterface";
 const PORT = process.env.PORT || 8080;
+let connected = false;
 
 // ---------------------------------------------------------------------
 // AWS Connection Setup
@@ -30,14 +31,17 @@ device.on('connect', () => {
     console.log('Connecting to AWS IoT Core');
 
     device.subscribe('from_client');
+    device.subscribe('connection');
 
     // subscribe to other topic, this topic should send device messages
     var message = "PC client connected with indentity: " + id;
-    device.publish('device_connection', JSON.stringify({ message: message }));
+    device.publish('device_connection', JSON.stringify({ message: message, listening: { sub1: 'from_client', sub2: 'connection' }}));
 });
 
 // receiver method from AWS IoT Core topic, confirms message received
 device.on('message', (topic, payload) => {
+    if (topic == 'connection')
+        connected = payload.connected;
     console.log('message', topic, payload.toString());
 });
 
@@ -56,6 +60,19 @@ app.post('/sendMessage', async (request, response, next) => {
         const result = request.body;
         console.log(`This is what we got: ${result.command}`)
         device.publish('from_client', JSON.stringify({ command: result.command }));
+        if (result.command == 'connect')
+            connected = true
+        else if (result.command == 'disconnect')
+            connected = false
+    } catch (err) {
+        next(err);
+    }
+})
+
+app.get('/getStatus', (request, response, next) => {
+    try {
+        console.log(`Current connection to the remote server: ${connected}`);
+        response.json({ connection: connected })
     } catch (err) {
         next(err);
     }

@@ -5,6 +5,12 @@ import Axios from 'axios';
 
 function App() {
   const [current, setCurrent] = useState(0);
+  const [connection, setConnection] = useState(false);
+
+  // get currect connection status on render or load
+  Axios.get('http://localhost:8080/getStatus').then((response) => {
+        setConnection(response.data.connection);
+  })
 
   const validate_and_send = (message) => {
     console.log(`Trying to send: ${message}`);
@@ -12,6 +18,11 @@ function App() {
       command: message
     }).catch((err) => {
       console.log(err);
+    })
+
+    // for every command, check if the server is receiving them
+    Axios.get('http://localhost:8080/getStatus').then((response) => {
+      setConnection(response.data.connection);
     })
 
     setCurrent(current + 1);
@@ -28,6 +39,10 @@ function App() {
       <div className="main-container">
           <div className="title">
               Tank Movement
+          </div>
+
+          <div className="title">
+              Controls: { connection ? <span id='active'>Active</span> : <span id='inactive'>Inactive</span> }
           </div>
 
           <div className="title">
@@ -52,21 +67,29 @@ function App() {
         {/* turret controls */}
         <div className="grid-container">
             <div></div>
-            <div className="grid-item" id="u-aim" onClick={() => {validate_and_send('up')}}>Up</div>
+            <div className="grid-item" id="u-aim" onClick={() => {validate_and_send('up')}}>Aim Up</div>
             <div></div>
-            <div className="grid-item" id="l-aim" onClick={() => {validate_and_send('l-aim')}}>Turn Left</div>
+            <div className="grid-item" id="l-aim" onClick={() => {validate_and_send('l-aim')}}>Aim Left</div>
             <div className="grid-fire" id="fire" onClick={() => {validate_and_send('fire!')}}>Fire!</div>
-            <div className="grid-item" id="r-aim" onClick={() => {validate_and_send('r-aim')}}>Turn Right</div>
+            <div className="grid-item" id="r-aim" onClick={() => {validate_and_send('r-aim')}}>Aim Right</div>
             <div></div>
-            <div className="grid-item" id="d-aim" onClick={() => {validate_and_send('down')}}>Down</div>
+            <div className="grid-item" id="d-aim" onClick={() => {validate_and_send('down')}}>Aim Down</div>
             <div></div>
         </div>
       </div>
+
+      {/* misc buttons container */}
       <div className="main-container">
+        {/* Laser container */}
         <div className="grid-container">
           <div className="grid-item" onClick={() => {validate_and_send('laser-off')}}>Laser off</div>
           <div className="grid-item" onClick={() => {validate_and_send('laser-on')}}>Laser On</div>
-          <div className="grid-item" onClick={() => {validate_and_send('stop')}}>Disconnect</div>
+        </div>
+
+        {/* Connection container */}
+        <div className="grid-container">
+          <div className="grid-item" onClick={() => {validate_and_send('connect')}}>Connect</div>
+          <div className="grid-item" onClick={() => {validate_and_send('disconnect')}}>Disconnect</div>
         </div>
       </div>
     </div>
