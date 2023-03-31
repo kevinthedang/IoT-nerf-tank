@@ -2,7 +2,7 @@
 D Squad: Drew Bogdan, Kevin Dang, Kole Davis, Vincent Do
 Description: Raspberry Pi program for tank controls using AWS connection
              to receive and execute commands
-Run: python3 main.py --topic topic_1 --ca_file ~/certs/Amazon-root-CA-1.pem \
+Run: python3 internetJox.py --topic topic_1 --ca_file ~/certs/AmazonRootCA1.pem \
      --cert ~/certs/certificate.pem.crt --key ~/certs/private.pem.key --endpoint <your aws endpoint here>
 """
 import command_line_utils
