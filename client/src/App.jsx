@@ -54,7 +54,7 @@ function App() {
         {/* movement controls */}
         <div className="grid-container">
             <div></div>
-            <div className="grid-item" id="foward" onClick={() => {validate_and_send('forward')}}>Foward</div>
+            <div className="grid-item" id="forward" onClick={() => {validate_and_send('forward')}}>Forward</div>
             <div></div>
             <div className="grid-item" id="left" onClick={() => {validate_and_send('left')}}>Turn Left</div>
             <div></div>
