@@ -2,7 +2,7 @@
 D Squad: Drew Bogdan, Kevin Dang, Kole Davis, Vincent Do
 Description: Raspberry Pi program for tank controls using AWS connection
              to receive and execute commands
-Run: python3 internetJox.py --topic topic_1 --ca_file ~/certs/AmazonRootCA1.pem \
+Run: python3 main.py --topic topic_1 --ca_file ~/certs/AmazonRootCA1.pem \
      --cert ~/certs/certificate.pem.crt --key ~/certs/private.pem.key --endpoint <your aws endpoint here>
 """
 import command_line_utils
@@ -72,10 +72,56 @@ def on_message_received(topic, payload, dup, qos, retain, **kwargs):
     msg = json.loads(payload.decode("utf-8"))
     cmd = msg["command"]
 
+    global offset
+    offset = not offset
+
     # TURRET
     if cmd == "fire!":
         print("FIRING")
+        mqttClient.publish("lights", "setPixel:1:0:0:240")
+        mqttClient.publish("lights", "setPixel:2:0:0:240")
+        mqttClient.publish("lights", "setPixel:3:0:0:240")
+        mqttClient.publish("lights", "setPixel:4:0:0:240")
+        mqttClient.publish("lights", "setPixel:5:0:0:240")
+        mqttClient.publish("control", "flywheel:fire")
+        sleep(4.2)
+        mqttClient.publish("lights", "setPixel:1:240:0:0")
+        mqttClient.publish("lights", "setPixel:2:240:0:0")
+        mqttClient.publish("lights", "setPixel:3:240:0:0")
+        mqttClient.publish("lights", "setPixel:4:240:0:0")
+        mqttClient.publish("lights", "setPixel:5:240:0:0")
         mqttClient.publish("control", "ammoRammer:fire")
+        sleep(1.0)
+        mqttClient.publish("lights", "setPixel:1:0:240:0")
+        mqttClient.publish("lights", "setPixel:2:0:240:0")
+        mqttClient.publish("lights", "setPixel:3:0:240:0")
+        mqttClient.publish("lights", "setPixel:4:0:240:0")
+        mqttClient.publish("lights", "setPixel:5:0:240:0")
+    elif cmd == "burst":
+        print("FIRING")
+        mqttClient.publish("lights", "setPixel:1:0:0:240")
+        mqttClient.publish("lights", "setPixel:2:0:0:240")
+        mqttClient.publish("lights", "setPixel:3:0:0:240")
+        mqttClient.publish("lights", "setPixel:4:0:0:240")
+        mqttClient.publish("lights", "setPixel:5:0:0:240")
+        mqttClient.publish("control", "flywheel:fire")
+        sleep(1)
+        mqttClient.publish("lights", "setPixel:1:240:0:0")
+        mqttClient.publish("lights", "setPixel:2:240:0:0")
+        mqttClient.publish("lights", "setPixel:3:240:0:0")
+        mqttClient.publish("lights", "setPixel:4:240:0:0")
+        mqttClient.publish("lights", "setPixel:5:240:0:0")
+        mqttClient.publish("control", "ammoRammer:fire")
+        sleep(1)
+        mqttClient.publish("control", "ammoRammer:fire")
+        sleep(1)
+        mqttClient.publish("control", "ammoRammer:fire")
+        mqttClient.publish("lights", "setPixel:1:0:240:0")
+        mqttClient.publish("lights", "setPixel:2:0:240:0")
+        mqttClient.publish("lights", "setPixel:3:0:240:0")
+        mqttClient.publish("lights", "setPixel:4:0:240:0")
+        mqttClient.publish("lights", "setPixel:5:0:240:0")
+
     elif cmd == "up":
         print("UP")
         mqttClient.publish("control", "gunElevator:up:10")
@@ -91,29 +137,54 @@ def on_message_received(topic, payload, dup, qos, retain, **kwargs):
     # TANK
     elif cmd == "right":
         print("RIGHT TURN")
-        mqttClient.publish("control", "leftTread:drive:1")
-        mqttClient.publish("control", "rightTread:drive:-1")
+        if offset:
+            mqttClient.publish("control", "leftTread:drive:0.7")
+            mqttClient.publish("control", "rightTread:drive:-0.7")
+        else:
+            mqttClient.publish("control", "leftTread:drive:0.701")
+            mqttClient.publish("control", "rightTread:drive:-0.701")
     elif cmd == "left":
         print("LEFT TURN")
-        mqttClient.publish("control", "leftTread:drive:-1")
-        mqttClient.publish("control", "rightTread:drive:1")
+        if offset:
+            mqttClient.publish("control", "rightTread:drive:0.7")
+            mqttClient.publish("control", "leftTread:drive:-0.7")
+        else:
+            mqttClient.publish("control", "rightTread:drive:0.701")
+            mqttClient.publish("control", "leftTread:drive:-0.701")
     elif cmd == "forward":
         print("FORWARD")
-        mqttClient.publish("control", "leftTread:drive:1")
-        mqttClient.publish("control", "rightTread:drive:1")
+        if offset:
+            mqttClient.publish("control", "leftTread:drive:1")
+            mqttClient.publish("control", "rightTread:drive:1")
+        else:
+            mqttClient.publish("control", "leftTread:drive:0.9901")
+            mqttClient.publish("control", "rightTread:drive:0.9901")
     elif cmd == "reverse":
         print("REVERSING")
-        mqttClient.publish("control", "leftTread:drive:-1")
-        mqttClient.publish("control", "rightTread:drive:-1")
+        if offset:
+            mqttClient.publish("control", "leftTread:drive:-1")
+            mqttClient.publish("control", "rightTread:drive:-1")
+        else:
+            mqttClient.publish("control", "leftTread:drive:-0.9901")
+            mqttClient.publish("control", "rightTread:drive:-0.9901")
     # MISC
     elif cmd == "laser-on":
         print("TURNING TARGETING LASER ON")
         mqttClient.publish("control", "targetingLaser:on")
+        mqttClient.publish("lights", "setPixel:6:255:165:0")
     elif cmd == "laser-off":
         print("TURNING TARGETING LASER OFF")
         mqttClient.publish("control", "targetingLaser:off")
+        mqttClient.publish("lights", "setPixel:6:0:0:0")
     elif cmd == "disconnect":
         print("DISCONNECTING FROM JOX")
+        mqttClient.publish("lights", "setPixel:1:240:0:0")
+        mqttClient.publish("lights", "setPixel:2:240:0:0")
+        mqttClient.publish("lights", "setPixel:3:240:0:0")
+        mqttClient.publish("lights", "setPixel:4:240:0:0")
+        mqttClient.publish("lights", "setPixel:5:240:0:0")
+        mqttClient.publish("lights", "setPixel:6:0:0:0")
+        sleep(0.5)
         # instead of stopping the listening loop / disconnect this client from Jox to prevent message sending (ONLY CONNECT IF A USER IS CONNECTED TO HERE)
         mqttClient.disconnect()
         # stop_event.set()
@@ -125,6 +196,12 @@ def on_message_received(topic, payload, dup, qos, retain, **kwargs):
         mqttClient.publish("control", "targetingLaser:off")
         mqttClient.publish("control", "gunElevator:setHome:")
         mqttClient.publish("control", "turretRing:setHome:")
+        mqttClient.publish("lights", "setPixel:1:0:240:0")
+        mqttClient.publish("lights", "setPixel:2:0:240:0")
+        mqttClient.publish("lights", "setPixel:3:0:240:0")
+        mqttClient.publish("lights", "setPixel:4:0:240:0")
+        mqttClient.publish("lights", "setPixel:5:0:240:0")
+
     else:
         print("UNKNOWN COMMAND", cmd)
 
@@ -156,12 +233,34 @@ def main():
 
     # setup local mqtt mosq server client variable and wait for aws message to connect to jox
     global mqttClient
-    global status
+    global offset
     mqttClient = setupMQTTClient()
+    mqttClient.publish("lights", "setPixel:1:240:0:0")
+    mqttClient.publish("lights", "setPixel:2:240:0:0")
+    mqttClient.publish("lights", "setPixel:3:240:0:0")
+    mqttClient.publish("lights", "setPixel:4:240:0:0")
+    mqttClient.publish("lights", "setPixel:5:240:0:0")
+    mqttClient.publish("lights", "setPixel:6:0:0:0")
+    sleep(0.5)
     mqttClient.disconnect()
+    offset = False
 
-    # WAITS FOR SHUTDOWN COMMAND
-    stop_event.wait()
+    try:
+        # WAITS FOR SHUTDOWN COMMAND
+        stop_event.wait()
+    except KeyboardInterrupt:
+        stop_event.set()
+    finally:
+        print("\nManual Interruption By User...")
+        mqttClient.publish("lights", "setPixel:1:0:0:0")
+        mqttClient.publish("lights", "setPixel:2:0:0:0")
+        mqttClient.publish("lights", "setPixel:3:0:0:0")
+        mqttClient.publish("lights", "setPixel:4:0:0:0")
+        mqttClient.publish("lights", "setPixel:5:0:0:0")
+        mqttClient.publish("lights", "setPixel:6:0:0:0")
+        sleep(0.5)
+        mqttClient.disconnect()
+
 
     # Disconnect
     print("Disconnecting...")
