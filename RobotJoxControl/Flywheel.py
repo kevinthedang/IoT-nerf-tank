@@ -50,7 +50,7 @@ class Flywheel:
         """
         self.log.debug(f"{self.name} speed {speed}")
         self.motorAPIRightFlywheel.throttle = speed
-        self.motorAPILeftFlywheel.throttle = -1 * speed
+        self.motorAPILeftFlywheel.throttle = 1 * speed
         self.lastControlEpoch = time()
         if not self.deadmanRunning:
             self.deadmanThread = threading.Thread(target=self.deadmanMethod)
