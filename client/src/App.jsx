@@ -74,7 +74,7 @@ function App() {
             <div className="grid-item" id="r-aim" onClick={() => {validate_and_send('r-aim')}}>Aim Right</div>
             <div></div>
             <div className="grid-item" id="d-aim" onClick={() => {validate_and_send('down')}}>Aim Down</div>
-            <div></div>
+            <div className="grid-fire" id="burst" onClick={() => {validate_and_send('burst')}}>Burst Fire</div>
         </div>
       </div>
 
