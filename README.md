@@ -12,7 +12,6 @@
 * [Commands](#commands)
 * [Parts](#parts)
 * [Credit](#credit)
-* [License](#license)
 
 ## Description
 For this project, we were inspired to combine a tank chassis with a nerf turret to create a tank that will be connected to a web server. The server will send json messages to certain topics on AWS where the tank (Raspberry Pi) will receive the messages through a proxy and execute the parsed commands.
