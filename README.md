@@ -1,4 +1,9 @@
-# IoT Nerf Tank
+<div align="center">
+    <h1>IoT Nerf Tank</h1>
+    <h3>Destruction on Treads and Money well spent</h3>
+    <p><a href="#"></a><a href="https://opensource.org/license/mit"><img alt="License" src="https://img.shields.io/badge/License-MIT-darkgreen.svg" /></a>
+    <p><img alt="tank" src="media/PXL_20230328_231253825.jpg" width="500px" /></p>
+</div>
 
 ## Table of Contents
 * [Description](#description)
@@ -7,7 +12,6 @@
 * [Commands](#commands)
 * [Parts](#parts)
 * [Credit](#credit)
-* [License](#license)
 
 ## Description
 For this project, we were inspired to combine a tank chassis with a nerf turret to create a tank that will be connected to a web server. The server will send json messages to certain topics on AWS where the tank (Raspberry Pi) will receive the messages through a proxy and execute the parsed commands.
@@ -93,26 +97,3 @@ For this project, we were inspired to combine a tank chassis with a nerf turret 
 * [Vincent Do](https://github.com/VinnyVinVince)
 * [Kevin Dang](https://github.com/kevinthedang)
 * [Aaron Crandall](https://github.com/acrandal)
-
-## License
-MIT License
-
-Copyright (c) 2023 Kevin Dang, Drew Bogdan, Vincent Do, Kole Davis, Aaron Crandall
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
